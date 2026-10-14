@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "marca": "Ford",
+    "modelo": "Mustang GT",
+    "año": 2021,
+    "precio": 750000,
+    "kilometraje": 15000,
+    "imagen": "https://images.unsplash.com/photo-1584345604476-8ec5e12e42dd?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "id": 2,
+    "marca": "Toyota",
+    "modelo": "Camry",
+    "año": 2020,
+    "precio": 380000,
+    "kilometraje": 42000,
+    "imagen": "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fd?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "id": 3,
+    "marca": "Honda",
+    "modelo": "Civic",
+    "año": 2022,
+    "precio": 420000,
+    "kilometraje": 20000,
+    "imagen": "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "id": 4,
+    "marca": "Chevrolet",
+    "modelo": "Silverado",
+    "año": 2019,
+    "precio": 650000,
+    "kilometraje": 60000,
+    "imagen": "https://images.unsplash.com/photo-1559416523-140ddc3d238c?auto=format&fit=crop&w=600&q=80"
+  }
+]
