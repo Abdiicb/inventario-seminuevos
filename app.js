@@ -23,19 +23,33 @@ function mostrarAutos(autos) {
     }
 
     autos.forEach(auto => {
-        
         const kmStr = auto.km_aprox ? auto.km_aprox.toLocaleString('es-MX') + ' km' : 'N/D';
         const versionStr = auto.version ? auto.version : '';
         
+        // ----------------------------------------------------
+        // NUEVA LÓGICA DEL CARRUSEL DE IMÁGENES
+        let imagenesHTML = '';
+        
+        // Si el auto ya tiene el nuevo formato de lista ("imagenes")
+        if (auto.imagenes && auto.imagenes.length > 0) {
+            auto.imagenes.forEach(imgUrl => {
+                imagenesHTML += `<img src="${imgUrl}" alt="${auto.marca} ${auto.modelo}">`;
+            });
+        } 
+        // Si todavía tiene el formato viejo ("imagen") o no tiene foto
+        else {
+            const fotoSola = auto.imagen || "https://placehold.co/600x400/1a252f/ffffff?text=FOTO+PENDIENTE";
+            imagenesHTML = `<img src="${fotoSola}" alt="${auto.marca} ${auto.modelo}">`;
+        }
+        // ----------------------------------------------------
+
         const tarjetaHTML = `
             <div class="tarjeta-auto">
-                <div class="img-container">
-                    <img src="${auto.imagen}" alt="${auto.marca} ${auto.modelo}">
+                <div class="carrusel">
+                    ${imagenesHTML}
                 </div>
                 <div class="info-auto">
                     <h2>${auto.marca} ${auto.modelo} ${versionStr} (${auto.año})</h2>
-                    
-                    <!-- Aquí cambiamos Sucursal por Proveedor según lo pediste -->
                     <p class="proveedor">📌 Proveedor: ${auto.ubicacion} | ⚙️ ${auto.transmision}</p>
                     
                     <p class="precio">Precio: $${auto.precio.toLocaleString('es-MX')}</p>
@@ -43,7 +57,6 @@ function mostrarAutos(autos) {
                     <p><strong>Mensualidad:</strong> $${auto.mensual.toLocaleString('es-MX')}</p>
                     <p><strong>Kilometraje:</strong> ${kmStr}</p>
                     
-                    <!-- Sección de Ver Más Detalles (El HTML nativo <details> hace que se despliegue) -->
                     <details class="ver-mas">
                         <summary>Ver más detalles</summary>
                         <div class="detalles-extra">

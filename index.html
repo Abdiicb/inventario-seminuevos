@@ -46,17 +46,34 @@
             transition: transform 0.2s;
         }
         .tarjeta-auto:hover {
-            transform: scale(1.02);
+            transform: scale(1.01);
         }
-        .img-container {
-            position: relative;
+
+        /* --- NUEVO ESTILO DEL CARRUSEL --- */
+        .carrusel {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory; /* Efecto magnético al deslizar */
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
         }
-        .tarjeta-auto img { 
-            width: 100%; 
-            height: 200px;
+        /* Oculta la barra de scroll abajo de la foto para que se vea más elegante */
+        .carrusel::-webkit-scrollbar {
+            height: 6px;
+        }
+        .carrusel::-webkit-scrollbar-thumb {
+            background-color: #ccc;
+            border-radius: 10px;
+        }
+        .carrusel img { 
+            scroll-snap-align: center; /* Centra la foto al deslizar */
+            flex: 0 0 100%; /* Cada foto toma el 100% de la tarjeta */
+            height: 220px;
             object-fit: cover; 
             background-color: #e9e9e9;
         }
+        /* ---------------------------------- */
+
         .info-auto {
             padding: 15px;
         }
@@ -85,7 +102,6 @@
             margin: 10px 0 !important;
         }
         
-        
         .ver-mas {
             margin-top: 15px;
             border-top: 1px dashed #ccc;
@@ -96,11 +112,10 @@
             color: #2980b9;
             font-weight: bold;
             outline: none;
-            list-style: none; 
+            list-style: none;
             text-align: center;
             padding: 5px;
         }
-        
         .ver-mas summary::-webkit-details-marker {
             display: none;
         }
@@ -126,8 +141,8 @@
 </head>
 <body>
     <header>
-        <h1>Ruta 66</h1>
-        <p>INVENTARIO</p>
+        <h1>Agencia Ruta 66</h1>
+        <p>INVENTARIO DE AUTOS</p>
     </header>
     
     <div class="busqueda-container">
