@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agencia Ruta 66 - Seminuevos</title>
     <style>
-        /* Estilos generales */
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             background-color: #f4f4f9; 
@@ -41,7 +40,7 @@
             background-color: white;
             border: 1px solid #ddd; 
             border-radius: 8px; 
-            width: 300px; 
+            width: 320px; 
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             overflow: hidden;
             transition: transform 0.2s;
@@ -49,27 +48,79 @@
         .tarjeta-auto:hover {
             transform: scale(1.02);
         }
+        .img-container {
+            position: relative;
+        }
         .tarjeta-auto img { 
             width: 100%; 
             height: 200px;
             object-fit: cover; 
+            background-color: #e9e9e9;
         }
         .info-auto {
             padding: 15px;
         }
         .info-auto h2 {
             margin: 0 0 10px 0;
-            font-size: 20px;
-            color: #333;
+            font-size: 18px;
+            color: #1a252f;
+            text-transform: uppercase;
+        }
+        .proveedor {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
         }
         .info-auto p {
             margin: 5px 0;
-            color: #555;
+            color: #444;
+            font-size: 14px;
         }
         .precio {
-            font-size: 1.2em;
+            font-size: 1.3em !important;
             font-weight: bold;
-            color: #27ae60;
+            color: #27ae60 !important;
+            margin: 10px 0 !important;
+        }
+        
+        
+        .ver-mas {
+            margin-top: 15px;
+            border-top: 1px dashed #ccc;
+            padding-top: 10px;
+        }
+        .ver-mas summary {
+            cursor: pointer;
+            color: #2980b9;
+            font-weight: bold;
+            outline: none;
+            list-style: none; 
+            text-align: center;
+            padding: 5px;
+        }
+        
+        .ver-mas summary::-webkit-details-marker {
+            display: none;
+        }
+        .ver-mas summary::after {
+            content: " ▼";
+            font-size: 11px;
+        }
+        .ver-mas[open] summary::after {
+            content: " ▲";
+        }
+        .detalles-extra {
+            margin-top: 10px;
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #eee;
+        }
+        .detalles-extra p {
+            margin: 4px 0;
+            font-size: 13px;
         }
     </style>
 </head>
@@ -80,11 +131,9 @@
     </header>
     
     <div class="busqueda-container">
-        <!-- El input donde el usuario escribirá la marca o modelo -->
         <input type="text" id="buscador" placeholder="Buscar por marca o modelo (ej. Ford, Civic)...">
     </div>
 
-    <!-- Aquí es donde JavaScript insertará las tarjetas -->
     <div id="inventario-container"></div>
 
     <script src="app.js"></script>

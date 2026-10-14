@@ -3,7 +3,6 @@ const buscador = document.getElementById('buscador');
 
 let inventarioGlobal = []; 
 
-// 1. Función para cargar el JSON
 async function cargarInventario() {
     try {
         const respuesta = await fetch('autos.json');
@@ -15,7 +14,6 @@ async function cargarInventario() {
     }
 }
 
-
 function mostrarAutos(autos) {
     contenedor.innerHTML = ''; 
 
@@ -26,19 +24,38 @@ function mostrarAutos(autos) {
 
     autos.forEach(auto => {
         
-        const kilometrajeText = auto.kilometraje > 0 ? `${auto.kilometraje.toLocaleString('es-MX')} km` : 'No especificado';
+        const kmStr = auto.km_aprox ? auto.km_aprox.toLocaleString('es-MX') + ' km' : 'N/D';
+        const versionStr = auto.version ? auto.version : '';
         
-        
-         const tarjetaHTML = `
+        const tarjetaHTML = `
             <div class="tarjeta-auto">
-                <img src="${auto.imagen}" alt="${auto.marca} ${auto.modelo}">
+                <div class="img-container">
+                    <img src="${auto.imagen}" alt="${auto.marca} ${auto.modelo}">
+                </div>
                 <div class="info-auto">
-                    <h2>${auto.marca} ${auto.modelo} ${auto.version} (${auto.año})</h2>
-                    <p style="font-size: 0.9em; color: #777;">📌 Sucursal: ${auto.ubicacion} | ⚙️ ${auto.transmision}</p>
+                    <h2>${auto.marca} ${auto.modelo} ${versionStr} (${auto.año})</h2>
+                    
+                    <!-- Aquí cambiamos Sucursal por Proveedor según lo pediste -->
+                    <p class="proveedor">📌 Proveedor: ${auto.ubicacion} | ⚙️ ${auto.transmision}</p>
+                    
                     <p class="precio">Precio: $${auto.precio.toLocaleString('es-MX')}</p>
                     <p><strong>Enganche desde:</strong> $${auto.enganche.toLocaleString('es-MX')}</p>
-                    <p><strong>Mensualidad:</strong> $${auto.mensualidad.toLocaleString('es-MX')}</p>
-                    <p><strong>Kilometraje:</strong> ${kilometrajeText}</p>
+                    <p><strong>Mensualidad:</strong> $${auto.mensual.toLocaleString('es-MX')}</p>
+                    <p><strong>Kilometraje:</strong> ${kmStr}</p>
+                    
+                    <!-- Sección de Ver Más Detalles (El HTML nativo <details> hace que se despliegue) -->
+                    <details class="ver-mas">
+                        <summary>Ver más detalles</summary>
+                        <div class="detalles-extra">
+                            <p><strong># Inv:</strong> ${auto.inv}</p>
+                            <p><strong>Tipo:</strong> ${auto.tipo}</p>
+                            <p><strong>Color:</strong> ${auto.color}</p>
+                            <p><strong>Origen:</strong> ${auto.nal_imp}</p>
+                            <p><strong>Plazo:</strong> ${auto.meses} meses</p>
+                            <p><strong>Pago Anual:</strong> $${auto.anual.toLocaleString('es-MX')}</p>
+                            <p><strong># Anualidades:</strong> ${auto.anualidad}</p>
+                        </div>
+                    </details>
                 </div>
             </div>
         `;
@@ -46,16 +63,13 @@ function mostrarAutos(autos) {
     });
 }
 
-
 buscador.addEventListener('input', (evento) => {
     const textoBusqueda = evento.target.value.toLowerCase();
-    
     const autosFiltrados = inventarioGlobal.filter(auto => {
         const marca = auto.marca.toLowerCase();
         const modelo = auto.modelo.toLowerCase();
         return marca.includes(textoBusqueda) || modelo.includes(textoBusqueda);
     });
-
     mostrarAutos(autosFiltrados);
 });
 
