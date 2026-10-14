@@ -26,27 +26,33 @@ function mostrarAutos(autos) {
         const kmStr = auto.km_aprox ? auto.km_aprox.toLocaleString('es-MX') + ' km' : 'N/D';
         const versionStr = auto.version ? auto.version : '';
         
-        // ----------------------------------------------------
-        // NUEVA LÓGICA DEL CARRUSEL DE IMÁGENES
         let imagenesHTML = '';
+        let botonesHTML = '';
         
-        // Si el auto ya tiene el nuevo formato de lista ("imagenes")
         if (auto.imagenes && auto.imagenes.length > 0) {
             auto.imagenes.forEach(imgUrl => {
                 imagenesHTML += `<img src="${imgUrl}" alt="${auto.marca} ${auto.modelo}">`;
             });
-        } 
-        // Si todavía tiene el formato viejo ("imagen") o no tiene foto
-        else {
+            
+            // Dibuja los botones solo si hay más de 1 imagen
+            if (auto.imagenes.length > 1) {
+                botonesHTML = `
+                    <button class="btn-carrusel izq" onclick="moverCarrusel('${auto.inv}', -1)">&#10094;</button>
+                    <button class="btn-carrusel der" onclick="moverCarrusel('${auto.inv}', 1)">&#10095;</button>
+                `;
+            }
+        } else {
             const fotoSola = auto.imagen || "https://placehold.co/600x400/1a252f/ffffff?text=FOTO+PENDIENTE";
             imagenesHTML = `<img src="${fotoSola}" alt="${auto.marca} ${auto.modelo}">`;
         }
-        // ----------------------------------------------------
 
         const tarjetaHTML = `
             <div class="tarjeta-auto">
-                <div class="carrusel">
-                    ${imagenesHTML}
+                <div class="carrusel-contenedor">
+                    ${botonesHTML}
+                    <div class="carrusel" id="carrusel-${auto.inv}">
+                        ${imagenesHTML}
+                    </div>
                 </div>
                 <div class="info-auto">
                     <h2>${auto.marca} ${auto.modelo} ${versionStr} (${auto.año})</h2>
@@ -85,5 +91,15 @@ buscador.addEventListener('input', (evento) => {
     });
     mostrarAutos(autosFiltrados);
 });
+
+
+function moverCarrusel(invId, direccion) {
+    const carrusel = document.getElementById(`carrusel-${invId}`);
+    const anchoImagen = carrusel.clientWidth; 
+    carrusel.scrollBy({
+        left: anchoImagen * direccion, 
+        behavior: 'smooth' 
+    });
+}
 
 cargarInventario();
